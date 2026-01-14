@@ -17,7 +17,7 @@ export default function Home() {
         <div className="container max-w-5xl mx-auto mt-5">
             <div>
                 <h1 className="text-6xl w-1/2 font-bold flex flex-col">
-                    <span>Hi, I'm </span>
+                    <span>{"Hi, I'm "}</span>
 
                     {/* 
                         creating a text gradient animation 
