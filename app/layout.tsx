@@ -22,8 +22,9 @@ export const metadata: Metadata = {
 
 
 const navLinks: Navbar01NavLink[] = [
-    { href: '#', label: 'Home', active: true },
-    { href: '#projects', label: 'Projects' }
+    { href: '/', label: 'Home' },
+    { href: '/projects', label: 'Projects' },
+    { href: 'https://blog.medcraft.dev', label: 'Blog' },
 ];
 
 export default function RootLayout({
@@ -40,10 +41,10 @@ export default function RootLayout({
                     attribute="class"
                     defaultTheme="dark"
                     enableSystem
-                    disableTransitionOnChange
                 >
                     <Navbar01 logo={<FaCodeBranch />} logoHref="/" navigationLinks={navLinks} />
-                    {children}
+
+                    <main>{children}</main>
                 </ThemeProvider>
             </body>
         </html>

@@ -18,6 +18,8 @@ import { cn } from '@/lib/utils';
 import { ModeToggle } from '../../light-dark-button';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import ButtonIcon from '../../button-icon';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // Simple logo component for the navbar
 const Logo = (props: React.SVGAttributes<SVGElement>) => {
@@ -79,7 +81,6 @@ const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>)
 export interface Navbar01NavLink {
     href: string;
     label: string;
-    active?: boolean;
 }
 
 export interface Navbar01Props extends React.HTMLAttributes<HTMLElement> {
@@ -96,7 +97,7 @@ export interface Navbar01Props extends React.HTMLAttributes<HTMLElement> {
 
 // Default navigation links
 const defaultNavigationLinks: Navbar01NavLink[] = [
-    { href: '#', label: 'Home', active: true },
+    { href: '#', label: 'Home' },
     { href: '#features', label: 'Features' },
     { href: '#pricing', label: 'Pricing' },
     { href: '#about', label: 'About' },
@@ -121,6 +122,8 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
     ) => {
         const [isMobile, setIsMobile] = useState(false);
         const containerRef = useRef<HTMLElement>(null);
+
+        const pathname = usePathname()
 
         useEffect(() => {
             const checkWidth = () => {
@@ -161,7 +164,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                 )}
                 {...props}
             >
-                <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4">
+                <div className="container mx-auto flex h-16 max-w-5xl items-center justify-between gap-4">
                     {/* Left side */}
                     <div className="flex items-center gap-2">
                         {/* Mobile menu trigger */}
@@ -181,17 +184,19 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                                         <NavigationMenuList className="flex-col items-start gap-1">
                                             {navigationLinks.map((link, index) => (
                                                 <NavigationMenuItem key={index} className="w-full">
-                                                    <button
-                                                        onClick={(e) => e.preventDefault()}
-                                                        className={cn(
-                                                            "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
-                                                            link.active
-                                                                ? "bg-accent text-accent-foreground"
-                                                                : "text-foreground/80"
-                                                        )}
-                                                    >
-                                                        {link.label}
-                                                    </button>
+                                                    <Link href={link}>
+                                                        <button
+                                                            onClick={(e) => e.preventDefault()}
+                                                            className={cn(
+                                                                "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
+                                                                link.href === pathname
+                                                                    ? "bg-accent text-accent-foreground"
+                                                                    : "text-foreground/80"
+                                                            )}
+                                                        >
+                                                            {link.label}
+                                                        </button>
+                                                    </Link>
                                                 </NavigationMenuItem>
                                             ))}
                                         </NavigationMenuList>
@@ -216,17 +221,20 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                                     <NavigationMenuList className="gap-1">
                                         {navigationLinks.map((link, index) => (
                                             <NavigationMenuItem key={index}>
-                                                <button
-                                                    onClick={(e) => e.preventDefault()}
-                                                    className={cn(
-                                                        "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
-                                                        link.active
-                                                            ? "bg-accent text-accent-foreground"
-                                                            : "text-foreground/80 hover:text-foreground"
-                                                    )}
-                                                >
+                                                <Link href={link.href} className={cn(
+                                                    "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
+                                                    link.href === pathname
+                                                        ? "bg-accent text-accent-foreground"
+                                                        : "text-foreground/80"
+                                                )}>
                                                     {link.label}
-                                                </button>
+                                                    {/* <button
+                                                        onClick={(e) => e.preventDefault()}
+
+                                                    >
+                                                        {link.label}
+                                                    </button> */}
+                                                </Link>
                                             </NavigationMenuItem>
                                         ))}
                                     </NavigationMenuList>
@@ -244,29 +252,6 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
 
                         <ModeToggle />
                     </div>
-                    {/* <div className="flex items-center gap-3">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-sm font-medium hover:bg-accent hover:text-accent-foreground"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                if (onSignInClick) onSignInClick();
-                            }}
-                        >
-                            {signInText}
-                        </Button>
-                        <Button
-                            size="sm"
-                            className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                if (onCtaClick) onCtaClick();
-                            }}
-                        >
-                            {ctaText}
-                        </Button>
-                    </div> */}
                 </div>
             </header>
         );

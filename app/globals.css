@@ -120,3 +120,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/*
+    creating a text gradient animation: 
+    https://medium.com/@samajabri2000/creating-an-animated-gradient-text-effect-with-tailwind-css-b47920698ff3
+ */
+@theme {
+     --animate-text-gradient: text-gradient 3s ease-in-out infinite alternate;
+  
+    @keyframes text-gradient {
+       0%, 15% {
+         background-position: 0 50%;
+       }
+       85%, 100% {
+         background-position: 100% 100%;
+       }
+   }
+}
