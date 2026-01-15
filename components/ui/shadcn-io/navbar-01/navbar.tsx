@@ -178,23 +178,18 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                                         <HamburgerIcon />
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent align="start" className="w-48 p-2">
-                                    <NavigationMenu className="max-w-none">
+                                <PopoverContent align="start" className="max-w-min p-2">
+                                    <NavigationMenu className="max-w-min">
                                         <NavigationMenuList className="flex-col items-start gap-1">
                                             {navigationLinks.map((link, index) => (
                                                 <NavigationMenuItem key={index} className="w-full">
-                                                    <Link href={link}>
-                                                        <button
-                                                            onClick={(e) => e.preventDefault()}
-                                                            className={cn(
-                                                                "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
-                                                                link.href === pathname
-                                                                    ? "bg-accent text-accent-foreground"
-                                                                    : "text-foreground/80"
-                                                            )}
-                                                        >
-                                                            {link.label}
-                                                        </button>
+                                                    <Link href={link.href} className={cn(
+                                                        "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
+                                                        link.href === pathname
+                                                            ? "bg-accent text-accent-foreground"
+                                                            : "text-foreground/80"
+                                                    )}>
+                                                        {link.label}
                                                     </Link>
                                                 </NavigationMenuItem>
                                             ))}
@@ -227,12 +222,6 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                                                         : "text-foreground/80"
                                                 )}>
                                                     {link.label}
-                                                    {/* <button
-                                                        onClick={(e) => e.preventDefault()}
-
-                                                    >
-                                                        {link.label}
-                                                    </button> */}
                                                 </Link>
                                             </NavigationMenuItem>
                                         ))}
@@ -252,7 +241,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                         <ModeToggle />
                     </div>
                 </div>
-            </header>
+            </header >
         );
     }
 );
