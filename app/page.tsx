@@ -5,10 +5,6 @@ const taglines = [
     "Math & Computer Science Tutor",
     "ESU Computer Science Organization President",
     "Computer Science & Math Major, Physics Minor",
-    "Really Cool Guy",
-    "Novice Chess Player",
-    "Typescript Fanboy",
-    "Keyboard Shortcut Fanatic",
     "Please Hire Me"
 ]
 
